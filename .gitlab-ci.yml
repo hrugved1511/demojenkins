@@ -1,0 +1,14 @@
+stages:
+    - build
+
+build:
+    stage: build
+    tags:
+        - gitLabRunner
+    script:
+        - pwd
+        - chmod -R 755 *
+        - ./mvnw package
+    artifacts:
+        paths:
+            - target/cloning.jar
