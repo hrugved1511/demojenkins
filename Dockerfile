@@ -1,4 +1,11 @@
-FROM openjdk:11
-EXPOSE 5000
-ADD target/spring-petclinic-2.4.5.jar spring-petclinic-2.4.5.jar
-ENTRYPOINT ["java","-jar","/spring-petclinic-2.4.5.jar"]
+FROM openjdk:16-alpine3.13
+
+WORKDIR /app
+
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
+
+COPY src ./src
+
+CMD ["./mvnw", "spring-boot:run"]
